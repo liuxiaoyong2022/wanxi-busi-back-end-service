@@ -1,0 +1,8 @@
+/target/
+/.idea/
+*.iml
+rebel.xml
+/logs/
+.git/
+/docker-compose-environment/docker-npm/volume/verdaccio/storage/data/
+

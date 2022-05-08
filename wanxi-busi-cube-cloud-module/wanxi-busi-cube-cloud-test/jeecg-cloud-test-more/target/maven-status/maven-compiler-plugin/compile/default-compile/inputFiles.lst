@@ -1,0 +1,9 @@
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/constant/CloudConstant.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/feign/controller/JeecgTestFeignController.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/feign/fallback/JeecgTestFallback.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/xxljob/XxclJobTest.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/feign/factory/JeecgTestClientFactory.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/feign/client/JeecgTestClient.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/feign/client/JeecgTestClientDyn.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/lock/DemoLockTest.java
+/Volumes/Lxy-Data-Vol/export/dev/project/java/vue-try/wanxi-busi-back-end-service/jeecg-cloud-module/jeecg-cloud-test/jeecg-cloud-test-more/src/main/java/org/jeecg/modules/test/xxljob/DemoJobHandler.java

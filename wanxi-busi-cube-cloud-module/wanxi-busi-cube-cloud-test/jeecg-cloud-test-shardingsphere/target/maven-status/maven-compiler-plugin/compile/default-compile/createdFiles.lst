@@ -1,0 +1,6 @@
+org/jeecg/modules/test/sharding/service/impl/ShardingSysLogServiceImpl.class
+org/jeecg/modules/test/sharding/mapper/ShardingSysLogMapper.class
+org/jeecg/modules/test/sharding/service/IShardingSysLogService.class
+org/jeecg/modules/test/sharding/controller/JeecgShardingDemoController.class
+org/jeecg/modules/test/sharding/algorithm/StandardModTableShardAlgorithm.class
+org/jeecg/modules/test/sharding/entity/ShardingSysLog.class

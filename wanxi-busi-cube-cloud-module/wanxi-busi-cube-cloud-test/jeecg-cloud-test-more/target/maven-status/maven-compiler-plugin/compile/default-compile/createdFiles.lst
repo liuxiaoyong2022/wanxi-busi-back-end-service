@@ -1,0 +1,9 @@
+org/jeecg/modules/test/feign/fallback/JeecgTestFallback.class
+org/jeecg/modules/test/lock/DemoLockTest.class
+org/jeecg/modules/test/feign/client/JeecgTestClientDyn.class
+org/jeecg/modules/test/constant/CloudConstant.class
+org/jeecg/modules/test/xxljob/XxclJobTest.class
+org/jeecg/modules/test/feign/client/JeecgTestClient.class
+org/jeecg/modules/test/feign/controller/JeecgTestFeignController.class
+org/jeecg/modules/test/feign/factory/JeecgTestClientFactory.class
+org/jeecg/modules/test/xxljob/DemoJobHandler.class

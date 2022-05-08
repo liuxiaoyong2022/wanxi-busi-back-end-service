@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.wanxi.busi.cube</groupId>
+        <artifactId>wanxi-busi-cube-fm</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wanxi-busi-cube-cloud-module</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wanxi-busi-cube-cloud-gateway</module>
+        <module>wanxi-busi-cube-cloud-nacos</module>
+        <module>wanxi-busi-cube-cloud-sentinel</module>
+        <module>wanxi-busi-cube-cloud-monitor</module>
+        <module>wanxi-busi-cube-cloud-system-start</module>
+        <module>wanxi-busi-cube-cloud-xxljob</module>
+<!--        <module>wanxi-busi-cube-cloud-test</module>-->
+    </modules>
+
+
+
+</project>
