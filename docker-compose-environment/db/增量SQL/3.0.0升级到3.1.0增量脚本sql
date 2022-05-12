@@ -37,3 +37,14 @@ INSERT INTO `sys_permission`(`id`, `parent_id`, `name`, `url`, `component`, `com
 -- online老数据,存在字符串类型key值不一致的情况,String改为string
 UPDATE onl_cgform_field SET db_type = 'string' where binary  db_type = 'String';
 
+-- 绑定手机号到geecg用户
+update `jeecg-boot`.sys_user set phone='13980673881' where id ='a75d45a015c44384a04449ee80dc3503'
+
+-- 更新 sys_gateway_route 表增加/lxydemo/**的路由
+update `jeecg-boot`.sys_gateway_route set predicates='[{\"args\":[\"/mock/**\",\"/test/**\",\"/bigscreen/template1/**\",\"/lxydemo/**\",\"/bigscreen/template2/**\"],\"name\":\"Path\"}]' where id = 'jeecg-demo'
+
+-- 更新nacos.config_info 表要主是在jeecg-gateway-router.json增加"_genkey_3": "/lxydemo/** 路由
+
+DELETE FROM nacos.config_info where id=3;
+INSERT INTO nacos.config_info VALUES (3, 'jeecg-gateway-router.json', 'DEFAULT_GROUP', '[{\n  \"id\": \"jeecg-system\",\n  \"order\": 0,\n  \"predicates\": [{\n    \"name\": \"Path\",\n    \"args\": {\n      \"_genkey_0\": \"/sys/**\",\n      \"_genkey_1\": \"/jmreport/**\",\n      \"_genkey_3\": \"/online/**\",\n      \"_genkey_4\": \"/generic/**\"\n    }\n  }],\n  \"filters\": [],\n  \"uri\": \"lb://jeecg-system\"\n}, {\n  \"id\": \"jeecg-demo\",\n  \"order\": 1,\n  \"predicates\": [{\n    \"name\": \"Path\",\n    \"args\": {\n      \"_genkey_0\": \"/mock/**\",\n      \"_genkey_1\": \"/test/**\",\n      \"_genkey_2\": \"/bigscreen/template1/**\",\n      \"_genkey_3\": \"/lxydemo/**\",\n      \"_genkey_4\": \"/bigscreen/template2/**\"\n    }\n  }],\n  \"filters\": [],\n  \"uri\": \"lb://jeecg-demo\"\n}, {\n  \"id\": \"jeecg-system-websocket\",\n  \"order\": 2,\n  \"predicates\": [{\n    \"name\": \"Path\",\n    \"args\": {\n      \"_genkey_0\": \"/websocket/**\",\n      \"_genkey_1\": \"/newsWebsocket/**\"\n    }\n  }],\n  \"filters\": [],\n  \"uri\": \"lb:ws://jeecg-system\"\n}, {\n  \"id\": \"jeecg-demo-websocket\",\n  \"order\": 3,\n  \"predicates\": [{\n    \"name\": \"Path\",\n    \"args\": {\n      \"_genkey_0\": \"/vxeSocket/**\"\n    }\n  }],\n  \"filters\": [],\n  \"uri\": \"lb:ws://jeecg-demo\"\n}]', 'be6548051d99309d7fa5ac4398404201', '2021-03-03 13:02:14', '2022-02-23 11:49:01', NULL, '0:0:0:0:0:0:0:1', '', '', '', '', '', 'json', '');
+

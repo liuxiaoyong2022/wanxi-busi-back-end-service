@@ -28,7 +28,8 @@
       "_genkey_0": "/mock/**",
       "_genkey_1": "/test/**",
       "_genkey_2": "/bigscreen/template1/**",
-      "_genkey_3": "/bigscreen/template2/**"
+      "_genkey_3": "/bigscreen/template2/**",
+      "_genkey_4": "/lxydemo123/**"
     }
   }],
   "filters": [],

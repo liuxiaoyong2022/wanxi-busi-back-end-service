@@ -131,7 +131,7 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://jeecg-boot-mysql:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
           username: root
           password: root
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -144,7 +144,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 127.0.0.1
+    host: jeecg-boot-redis
     lettuce:
       pool:
         max-active: 8   #最大连接数据库连接数,设 -1 为没有限制
@@ -275,10 +275,14 @@ knife4j:
 justauth:
   enabled: true
   type:
+#    GITHUB:
+#      client-id: fc33e3a5435e894183aa
+#      client-secret: 18933a57fddc3014c3a236b4d015c6301a17eea9
+#      redirect-uri: http://sso.test.com:8080/jeecg-boot/sys/thirdLogin/github/callback
     GITHUB:
-      client-id: fc33e3a5435e894183aa
-      client-secret: 18933a57fddc3014c3a236b4d015c6301a17eea9
-      redirect-uri: http://sso.test.com:8080/jeecg-boot/sys/thirdLogin/github/callback
+      client-id: ba2c0fdd44bb99cf420f
+      client-secret: 6acbbbd168502e6e19d3cbb11716f07011c5f890
+      redirect-uri: http://sso.test.com:9999/sys/thirdLogin/github/callback
     WECHAT_ENTERPRISE:
       client-id: ??
       client-secret: ??

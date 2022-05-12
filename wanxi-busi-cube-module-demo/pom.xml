@@ -21,10 +21,10 @@
           <groupId>com.wanxi.busi.cube</groupId>
           <artifactId>wanxi-busi-cube-starter-cloud</artifactId>
       </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.wanxi.busi.cube</groupId>-->
-<!--            <artifactId>wanxi-busi-cube-starter-job</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.wanxi.busi.cube</groupId>
+            <artifactId>wanxi-busi-cube-starter-job</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
