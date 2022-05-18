@@ -28,15 +28,11 @@ services:
     hostname: jeecg-boot-redis
     container_name: jeecg-boot-redis
 
-#  jeecg-boot-system:
-#    build:
-#      context: ./jeecg-boot-module-system
-#    restart: on-failure
-#    depends_on:
-#      - jeecg-boot-mysql
-#      - jeecg-boot-redis
-#    container_name: jeecg-boot-system
-#    image: jeecg-boot-system
-#    hostname: jeecg-boot-system
-#    ports:
-#      - 8080:8080
+  jeecg-boot-rabbitmq:
+    #    image: rabbitmq:3-management
+    image: rabbitmq:3
+    ports:
+      - 5672:5672
+    restart: always
+    container_name: jeecg-boot-rabbitmq
+    hostname: jeecg-boot-rabbitmq

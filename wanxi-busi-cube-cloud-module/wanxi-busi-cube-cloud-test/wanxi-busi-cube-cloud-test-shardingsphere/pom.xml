@@ -3,26 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>wanxi-busi-cube-cloud-module</artifactId>
+        <artifactId>wanxi-busi-cube-cloud-test</artifactId>
         <groupId>com.wanxi.busi.cube</groupId>
         <version>1.0.0</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <artifactId>wanxi-busi-cube-cloud-test</artifactId>
+
+    <artifactId>wanxi-busi-cube-cloud-test-shardingsphere</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.wanxi.busi.cube</groupId>
-            <artifactId>wanxi-busi-cube-base-core</artifactId>
+            <artifactId>wanxi-busi-cube-starter-shardingsphere</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>wanxi-busi-cube-cloud-test-seata</module>
-        <module>wanxi-busi-cube-cloud-test-shardingsphere</module>
-        <module>wanxi-busi-cube-cloud-test-more</module>
-        <module>wanxi-busi-cube-cloud-test-rabbitmq</module>
-    </modules>
 </project>
