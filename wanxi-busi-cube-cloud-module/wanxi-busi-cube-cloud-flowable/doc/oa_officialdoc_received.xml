@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" id="sample-diagram" targetNamespace="http://www.jeecg.com" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="oa_officialdoc_received" name="公文收文" flowable:processCategory="oa">
+        <documentation>流程描述</documentation>
+        <bpmn2:extensionElements>
+            <activiti:executionListener class="org.jeecg.modules.flowable.listener.ProcessEndListener" id="402880e54803a496014805e5d9190012" event="end" />
+        </bpmn2:extensionElements>
+        <bpmn2:startEvent id="start" name="开始节点" activiti:initiator="applyUserId" />
+        <bpmn2:endEvent id="end" name="结束节点" />
+        <bpmn2:userTask id="task1594026871987" name="拟办意见" activiti:assignee="lxy">
+            <bpmn2:extensionElements>
+                <activiti:taskListener class="org.jeecg.modules.flowable.listener.TaskCreatedAutoSubmitListener" event="create" id="9c3064baa7074eab62e3c5b3b5458691" />
+            </bpmn2:extensionElements>
+        </bpmn2:userTask>
+        <bpmn2:userTask id="task1594026905878" name="办公室领导审核" activiti:assignee="qyc" />
+        <bpmn2:userTask id="task1594026936918" name="秘书呈送主协办" activiti:assignee="lxy" />
+        <bpmn2:userTask id="task1594027045770" name="主办部门" activiti:assignee="qyc" />
+        <bpmn2:userTask id="task1594027074194" name="协办部门" activiti:assignee="${applyUserId}" />
+        <bpmn2:userTask id="task1594027240403" name="秘书分发传阅" activiti:assignee="${assigneeUserId}">
+            <incoming>Flow_0pixex2</incoming>
+<!--            <multiInstanceLoopCharacteristics activiti:collection="${assigneeUserIdList}" activiti:elementVariable="assigneeUserId" />-->
+        </bpmn2:userTask>
+        <bpmn2:userTask id="task1594027291034" name="归档" activiti:assignee="admin" />
+        <bpmn2:userTask id="task1594983641570" name="部门领导审核" activiti:assignee="king" />
+        <bpmn2:inclusiveGateway id="inclusiveGateway1594027148623" name="包含网关1" />
+        <bpmn2:inclusiveGateway id="inclusiveGateway1594027193958" name="包含网关2" />
+        <bpmn2:parallelGateway id="Gateway_0v1b6zd">
+            <incoming>flow1594030878755</incoming>
+            <incoming>flow1594983662927</incoming>
+            <outgoing>Flow_0pixex2</outgoing>
+        </bpmn2:parallelGateway>
+        <bpmn2:sequenceFlow id="flow1594030809014" name="" sourceRef="start" targetRef="task1594026871987" />
+        <bpmn2:sequenceFlow id="flow1594030816684" name="" sourceRef="task1594026871987" targetRef="task1594026905878" />
+        <bpmn2:sequenceFlow id="flow1594030819539" name="秘书呈送主协办" sourceRef="task1594026905878" targetRef="task1594026936918">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594030821395" name="" sourceRef="task1594026936918" targetRef="inclusiveGateway1594027148623" />
+        <bpmn2:sequenceFlow id="flow1594030823518" name="主办部门" sourceRef="inclusiveGateway1594027148623" targetRef="task1594027045770" />
+        <bpmn2:sequenceFlow id="flow1594030824958" name="协办部门" sourceRef="inclusiveGateway1594027148623" targetRef="task1594027074194" />
+        <bpmn2:sequenceFlow id="flow1594030827928" name="" sourceRef="task1594027045770" targetRef="inclusiveGateway1594027193958">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594030829768" name="" sourceRef="task1594027074194" targetRef="inclusiveGateway1594027193958">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594030878755" name="" sourceRef="inclusiveGateway1594027193958" targetRef="Gateway_0v1b6zd">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.ReveicedStartListener" id="1285419790048247810" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594030880587" name="" sourceRef="task1594027240403" targetRef="task1594027291034">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594030885978" name="" sourceRef="task1594027291034" targetRef="end" />
+        <bpmn2:sequenceFlow id="flow1594983653201" name="领导审核" sourceRef="task1594026905878" targetRef="task1594983641570">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </bpmn2:extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="flow1594983662927" name="" sourceRef="task1594983641570" targetRef="Gateway_0v1b6zd">
+            <extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.ReveicedStartListener" id="1285419790048247810" />
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.OaOfficialdocStartListener" id="1286113066426388482" />
+            </extensionElements>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_0pixex2" sourceRef="Gateway_0v1b6zd" targetRef="task1594027240403" />
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_oa_officialdoc_received">
+        <bpmndi:BPMNPlane id="BPMNPlane_oa_officialdoc_received" bpmnElement="oa_officialdoc_received">
+            <bpmndi:BPMNEdge id="Flow_0pixex2_di" bpmnElement="Flow_0pixex2">
+                <di:waypoint x="256" y="603" />
+                <di:waypoint x="256" y="672" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594983662927" bpmnElement="flow1594983662927">
+                <di:waypoint x="67" y="559" />
+                <di:waypoint x="67" y="578" />
+                <di:waypoint x="231" y="578" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594983653201" bpmnElement="flow1594983653201">
+                <di:waypoint x="165" y="294" />
+                <di:waypoint x="67" y="294" />
+                <di:waypoint x="67" y="501" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030885978" bpmnElement="flow1594030885978">
+                <di:waypoint x="256" y="877" />
+                <di:waypoint x="256" y="935" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030880587" bpmnElement="flow1594030880587">
+                <di:waypoint x="256" y="727" />
+                <di:waypoint x="256" y="822" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030878755" bpmnElement="flow1594030878755">
+                <di:waypoint x="438" y="564" />
+                <di:waypoint x="438" y="578" />
+                <di:waypoint x="281" y="578" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030829768" bpmnElement="flow1594030829768">
+                <di:waypoint x="503" y="489" />
+                <di:waypoint x="503" y="507" />
+                <di:waypoint x="437" y="507" />
+                <di:waypoint x="437" y="525" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030827928" bpmnElement="flow1594030827928">
+                <di:waypoint x="377" y="490" />
+                <di:waypoint x="377" y="507" />
+                <di:waypoint x="437" y="507" />
+                <di:waypoint x="437" y="525" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030824958" bpmnElement="flow1594030824958">
+                <di:waypoint x="461" y="393" />
+                <di:waypoint x="503" y="393" />
+                <di:waypoint x="503" y="424" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030823518" bpmnElement="flow1594030823518">
+                <di:waypoint x="421" y="393" />
+                <di:waypoint x="377" y="393" />
+                <di:waypoint x="377" y="425" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030821395" bpmnElement="flow1594030821395">
+                <di:waypoint x="441" y="327" />
+                <di:waypoint x="441" y="373" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030819539" bpmnElement="flow1594030819539">
+                <di:waypoint x="265" y="294" />
+                <di:waypoint x="391" y="294" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030816684" bpmnElement="flow1594030816684">
+                <di:waypoint x="215" y="209" />
+                <di:waypoint x="215" y="262" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1594030809014" bpmnElement="flow1594030809014">
+                <di:waypoint x="215" y="55" />
+                <di:waypoint x="215" y="144" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_start" bpmnElement="start">
+                <dc:Bounds x="200" y="25" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_end" bpmnElement="end">
+                <dc:Bounds x="241" y="935" width="30" height="30" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="234" y="965" width="44" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594026871987" bpmnElement="task1594026871987">
+                <dc:Bounds x="170" y="149" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594026905878" bpmnElement="task1594026905878">
+                <dc:Bounds x="170" y="267" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594026936918" bpmnElement="task1594026936918">
+                <dc:Bounds x="396" y="267" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594027045770" bpmnElement="task1594027045770">
+                <dc:Bounds x="332" y="430" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594027074194" bpmnElement="task1594027074194">
+                <dc:Bounds x="458" y="429" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594027240403" bpmnElement="task1594027240403">
+                <dc:Bounds x="211" y="672" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594027291034" bpmnElement="task1594027291034">
+                <dc:Bounds x="211" y="822" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1594983641570" bpmnElement="task1594983641570">
+                <dc:Bounds x="22" y="506" width="90" height="53" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_inclusiveGateway1594027148623" bpmnElement="inclusiveGateway1594027148623">
+                <dc:Bounds x="421" y="373" width="40" height="40" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_inclusiveGateway1594027193958" bpmnElement="inclusiveGateway1594027193958">
+                <dc:Bounds x="417" y="525" width="40" height="40" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="355.5" y="538" width="51" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_1gcoesz_di" bpmnElement="Gateway_0v1b6zd">
+                <dc:Bounds x="231" y="553" width="50" height="50" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

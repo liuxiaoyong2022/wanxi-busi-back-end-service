@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="sample-diagram" targetNamespace="http://activiti.org/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="media_After_sales_Prcoess" name="媒体机构长流程_media_After_sales_Prcoess" isExecutable="true" activiti:versionTag="3.0.1">
+        <bpmn2:extensionElements>
+            <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.StartListener" event="start" />
+            <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.EndListener" event="end" />
+        </bpmn2:extensionElements>
+        <bpmn2:startEvent id="StartEvent_1">
+            <bpmn2:outgoing>Flow_0eyjclq</bpmn2:outgoing>
+        </bpmn2:startEvent>
+        <bpmn2:exclusiveGateway id="Gateway_1q39o8c">
+            <bpmn2:incoming>Flow_027zvpt</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_150tr9d</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_02bsxpw</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:userTask id="Activity_098qkw3" name="专员处理" activiti:formKey="zhuanyuan" activiti:assignee="qyc" activiti:dueDate="${dueDate}">
+            <bpmn2:extensionElements>
+                <activiti:taskListener class="org.jeecg.modules.flowable.listener.media.CheckUserListener" event="create" />
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.CompleteUserListener" event="end" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_150tr9d</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1bm1eyw</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:userTask id="Activity_1bvzcx4" name="主管处理" activiti:formKey="zhuguan"  activiti:assignee="jeecg"  activiti:dueDate="${dueDate}">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.CompleteUserListener" event="end" />
+                <activiti:taskListener class="org.jeecg.modules.flowable.listener.media.CheckUserListener" event="create" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_02bsxpw</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1fqm5sx</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:endEvent id="Event_0a6zwsp">
+            <bpmn2:incoming>Flow_1qti86x</bpmn2:incoming>
+        </bpmn2:endEvent>
+        <bpmn2:sequenceFlow id="Flow_150tr9d" name="区域专员处理" sourceRef="Gateway_1q39o8c" targetRef="Activity_098qkw3">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${type==1}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:userTask id="Activity_0jetlmr" name="提交申请">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.CheckDisListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0eyjclq</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_027zvpt</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_0eyjclq" sourceRef="StartEvent_1" targetRef="Activity_0jetlmr" />
+        <bpmn2:sequenceFlow id="Flow_027zvpt" sourceRef="Activity_0jetlmr" targetRef="Gateway_1q39o8c" />
+        <bpmn2:boundaryEvent id="Event_1hvlbb6" name="提醒主管处理" cancelActivity="false" attachedToRef="Activity_1bvzcx4">
+            <bpmn2:outgoing>Flow_1kz0har</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_1gvo7v4">
+                <bpmn2:timeDate xsi:type="bpmn2:tFormalExpression">${overTimeSendLimit}</bpmn2:timeDate>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+        <bpmn2:boundaryEvent id="Event_1cv1ftf" name="提醒专员处理" cancelActivity="false" attachedToRef="Activity_098qkw3">
+            <bpmn2:outgoing>Flow_011thbc</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_0s6i905">
+                <bpmn2:timeDate xsi:type="bpmn2:tFormalExpression">${overTimeSendLimit}</bpmn2:timeDate>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+        <bpmn2:task id="Activity_1yjxcdk" name="持续提醒">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.SuperAlertListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_05r0ceu</bpmn2:incoming>
+        </bpmn2:task>
+        <bpmn2:boundaryEvent id="Event_1p3bv87" cancelActivity="false" attachedToRef="Activity_1ngbv6f">
+            <bpmn2:outgoing>Flow_05r0ceu</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_0iqif9k">
+                <bpmn2:timeCycle xsi:type="bpmn2:tFormalExpression">0/20 * * * * ?</bpmn2:timeCycle>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+        <bpmn2:userTask id="Activity_1ngbv6f" name="主管已超时" activiti:formKey="zhuguan" activiti:assignee="jeecg">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.CompleteUserListener" event="end" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0ic07p1</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1p97hlg</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_05r0ceu" sourceRef="Event_1p3bv87" targetRef="Activity_1yjxcdk" />
+        <bpmn2:boundaryEvent id="Event_0f6ekcz" attachedToRef="Activity_1bvzcx4">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.inspect.OverTimeListener" event="end" />
+            </bpmn2:extensionElements>
+            <bpmn2:outgoing>Flow_0kvvuun</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_0tjnp9r">
+                <bpmn2:timeDate xsi:type="bpmn2:tFormalExpression">${overTimeLimit}</bpmn2:timeDate>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+        <bpmn2:sequenceFlow id="Flow_02bsxpw" name="区域主管处理" sourceRef="Gateway_1q39o8c" targetRef="Activity_1bvzcx4">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${type==2}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:task id="Activity_1owvtll" name="未处理提醒">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.DoAlertListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_011thbc</bpmn2:incoming>
+        </bpmn2:task>
+        <bpmn2:task id="Activity_1lwyf5g" name="未处理提醒">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.DoAlertListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1kz0har</bpmn2:incoming>
+        </bpmn2:task>
+        <bpmn2:sequenceFlow id="Flow_1kz0har" sourceRef="Event_1hvlbb6" targetRef="Activity_1lwyf5g" />
+        <bpmn2:exclusiveGateway id="Gateway_0kut1v8">
+            <bpmn2:incoming>Flow_0kvvuun</bpmn2:incoming>
+            <bpmn2:incoming>Flow_1fqm5sx</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_0ic07p1</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_00ari9r</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:sequenceFlow id="Flow_0ic07p1" name="超时" sourceRef="Gateway_0kut1v8" targetRef="Activity_1ngbv6f">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${taskTimeout==1}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_011thbc" sourceRef="Event_1cv1ftf" targetRef="Activity_1owvtll" />
+        <bpmn2:sequenceFlow id="Flow_00ari9r" name="办结" sourceRef="Gateway_0kut1v8" targetRef="Activity_0uunwpa">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${taskTimeout==0}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:userTask id="Activity_0uunwpa" name="结案" activiti:assignee="king" activiti:dueDate="${dueDate}">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.ApplyCloseListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_0lotrzi</bpmn2:incoming>
+            <bpmn2:incoming>Flow_1bnrme1</bpmn2:incoming>
+            <bpmn2:incoming>Flow_00ari9r</bpmn2:incoming>
+            <bpmn2:incoming>Flow_1p97hlg</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1qti86x</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:exclusiveGateway id="Gateway_040opje">
+            <bpmn2:incoming>Flow_0n9mioe</bpmn2:incoming>
+            <bpmn2:incoming>Flow_1bm1eyw</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1qlt7ta</bpmn2:outgoing>
+            <bpmn2:outgoing>Flow_0lotrzi</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:sequenceFlow id="Flow_0n9mioe" sourceRef="Event_1hfmevt" targetRef="Gateway_040opje" />
+        <bpmn2:userTask id="Activity_0ulta9b" name="专员已超时" activiti:formKey="lxy" activiti:assignee="qyc">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.CompleteUserListener" event="end" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1qlt7ta</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1bnrme1</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1qlt7ta" name="超时" sourceRef="Gateway_040opje" targetRef="Activity_0ulta9b">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${taskTimeout==1}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:boundaryEvent id="Event_0qceea7" cancelActivity="false" attachedToRef="Activity_0ulta9b">
+            <bpmn2:outgoing>Flow_01m6q25</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_1r9k7kk">
+                <bpmn2:timeCycle xsi:type="bpmn2:tFormalExpression">0/20 * * * * ?</bpmn2:timeCycle>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+        <bpmn2:task id="Activity_0o0qsoo" name="持续提醒">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.media.SuperAlertListener" event="start" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_01m6q25</bpmn2:incoming>
+        </bpmn2:task>
+        <bpmn2:sequenceFlow id="Flow_01m6q25" sourceRef="Event_0qceea7" targetRef="Activity_0o0qsoo" />
+        <bpmn2:sequenceFlow id="Flow_0kvvuun" sourceRef="Event_0f6ekcz" targetRef="Gateway_0kut1v8" />
+        <bpmn2:sequenceFlow id="Flow_0lotrzi" name="办结" sourceRef="Gateway_040opje" targetRef="Activity_0uunwpa">
+            <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${taskTimeout==0}</bpmn2:conditionExpression>
+        </bpmn2:sequenceFlow>
+        <bpmn2:sequenceFlow id="Flow_1bnrme1" sourceRef="Activity_0ulta9b" targetRef="Activity_0uunwpa" />
+
+        <bpmn2:sequenceFlow id="Flow_1p97hlg" name="办结" sourceRef="Activity_1ngbv6f" targetRef="Activity_0uunwpa" />
+        <bpmn2:sequenceFlow id="Flow_1qti86x" sourceRef="Activity_0uunwpa" targetRef="Event_0a6zwsp" />
+        <bpmn2:sequenceFlow id="Flow_1bm1eyw" sourceRef="Activity_098qkw3" targetRef="Gateway_040opje" />
+        <bpmn2:sequenceFlow id="Flow_1fqm5sx" sourceRef="Activity_1bvzcx4" targetRef="Gateway_0kut1v8" />
+        <bpmn2:boundaryEvent id="Event_1hfmevt" name="专员超时" attachedToRef="Activity_098qkw3">
+            <bpmn2:extensionElements>
+                <activiti:executionListener class="org.jeecg.modules.flowable.listener.inspect.OverTimeListener" event="end" />
+            </bpmn2:extensionElements>
+            <bpmn2:outgoing>Flow_0n9mioe</bpmn2:outgoing>
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_1501tnj">
+                <bpmn2:timeDate xsi:type="bpmn2:tFormalExpression">${overTimeLimit}</bpmn2:timeDate>
+            </bpmn2:timerEventDefinition>
+        </bpmn2:boundaryEvent>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="mediaAftersalesPrcoess_Copy1654757752914">
+            <bpmndi:BPMNEdge id="Flow_1fqm5sx_di" bpmnElement="Flow_1fqm5sx">
+                <di:waypoint x="550" y="480" />
+                <di:waypoint x="723" y="480" />
+                <di:waypoint x="723" y="520" />
+                <di:waypoint x="895" y="520" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1bm1eyw_di" bpmnElement="Flow_1bm1eyw">
+                <di:waypoint x="550" y="130" />
+                <di:waypoint x="613" y="130" />
+                <di:waypoint x="613" y="170" />
+                <di:waypoint x="675" y="170" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1qti86x_di" bpmnElement="Flow_1qti86x">
+                <di:waypoint x="1140" y="320" />
+                <di:waypoint x="1222" y="320" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1p97hlg_di" bpmnElement="Flow_1p97hlg" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="970" y="640" />
+                <di:waypoint x="1110" y="640" />
+                <di:waypoint x="1110" y="360" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1039" y="622" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_00ari9r_di" bpmnElement="Flow_00ari9r" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="945" y="520" />
+                <di:waypoint x="1060" y="520" />
+                <di:waypoint x="1060" y="360" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="992" y="502" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1bnrme1_di" bpmnElement="Flow_1bnrme1">
+                <di:waypoint x="750" y="320" />
+                <di:waypoint x="1040" y="320" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0lotrzi_di" bpmnElement="Flow_0lotrzi" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="725" y="170" />
+                <di:waypoint x="1090" y="170" />
+                <di:waypoint x="1090" y="280" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="897" y="152" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0kvvuun_di" bpmnElement="Flow_0kvvuun">
+                <di:waypoint x="500" y="538" />
+                <di:waypoint x="500" y="558" />
+                <di:waypoint x="698" y="558" />
+                <di:waypoint x="698" y="520" />
+                <di:waypoint x="895" y="520" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_01m6q25_di" bpmnElement="Flow_01m6q25">
+                <di:waypoint x="632" y="300" />
+                <di:waypoint x="600" y="300" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1qlt7ta_di" bpmnElement="Flow_1qlt7ta" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="700" y="195" />
+                <di:waypoint x="700" y="260" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="704" y="215" width="23" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0n9mioe_di" bpmnElement="Flow_0n9mioe">
+                <di:waypoint x="500" y="188" />
+                <di:waypoint x="500" y="208" />
+                <di:waypoint x="588" y="208" />
+                <di:waypoint x="588" y="170" />
+                <di:waypoint x="675" y="170" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_011thbc_di" bpmnElement="Flow_011thbc">
+                <di:waypoint x="568" y="90" />
+                <di:waypoint x="579" y="90" />
+                <di:waypoint x="579" y="70" />
+                <di:waypoint x="590" y="70" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0ic07p1_di" bpmnElement="Flow_0ic07p1" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="920" y="545" />
+                <di:waypoint x="920" y="600" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="924" y="563" width="23" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1kz0har_di" bpmnElement="Flow_1kz0har">
+                <di:waypoint x="568" y="440" />
+                <di:waypoint x="584" y="440" />
+                <di:waypoint x="584" y="410" />
+                <di:waypoint x="600" y="410" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_02bsxpw_di" bpmnElement="Flow_02bsxpw" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="40" y="283" />
+                <di:waypoint x="40" y="480" />
+                <di:waypoint x="450" y="480" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="196" y="463" width="67" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_05r0ceu_di" bpmnElement="Flow_05r0ceu">
+                <di:waypoint x="852" y="640" />
+                <di:waypoint x="790" y="640" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_027zvpt_di" bpmnElement="Flow_027zvpt">
+                <di:waypoint x="-10" y="258" />
+                <di:waypoint x="15" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0eyjclq_di" bpmnElement="Flow_0eyjclq">
+                <di:waypoint x="-142" y="258" />
+                <di:waypoint x="-110" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_150tr9d_di" bpmnElement="Flow_150tr9d" bioc:stroke="#000" bioc:fill="#fff">
+                <di:waypoint x="40" y="233" />
+                <di:waypoint x="40" y="130" />
+                <di:waypoint x="450" y="130" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="185" y="113" width="67" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+                <dc:Bounds x="-178" y="240" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_1q39o8c_di" bpmnElement="Gateway_1q39o8c" isMarkerVisible="true">
+                <dc:Bounds x="15" y="233" width="50" height="50" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_098qkw3_di" bpmnElement="Activity_098qkw3">
+                <dc:Bounds x="450" y="90" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1bvzcx4_di" bpmnElement="Activity_1bvzcx4">
+                <dc:Bounds x="450" y="440" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0a6zwsp_di" bpmnElement="Event_0a6zwsp">
+                <dc:Bounds x="1222" y="302" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0jetlmr_di" bpmnElement="Activity_0jetlmr">
+                <dc:Bounds x="-110" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1yjxcdk_di" bpmnElement="Activity_1yjxcdk">
+                <dc:Bounds x="690" y="600" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1ngbv6f_di" bpmnElement="Activity_1ngbv6f">
+                <dc:Bounds x="870" y="600" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1owvtll_di" bpmnElement="Activity_1owvtll">
+                <dc:Bounds x="590" y="30" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1lwyf5g_di" bpmnElement="Activity_1lwyf5g">
+                <dc:Bounds x="600" y="370" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_0kut1v8_di" bpmnElement="Gateway_0kut1v8" isMarkerVisible="true">
+                <dc:Bounds x="895" y="495" width="50" height="50" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0uunwpa_di" bpmnElement="Activity_0uunwpa">
+                <dc:Bounds x="1040" y="280" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Gateway_040opje_di" bpmnElement="Gateway_040opje" isMarkerVisible="true">
+                <dc:Bounds x="675" y="145" width="50" height="50" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0ulta9b_di" bpmnElement="Activity_0ulta9b">
+                <dc:Bounds x="650" y="260" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0o0qsoo_di" bpmnElement="Activity_0o0qsoo">
+                <dc:Bounds x="500" y="260" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0dt0o2d_di" bpmnElement="Event_1hfmevt" bioc:stroke="#000" bioc:fill="#fff">
+                <dc:Bounds x="482" y="152" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="819" y="303" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0691pub_di" bpmnElement="Event_0qceea7">
+                <dc:Bounds x="632" y="282" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0zzwnnd_di" bpmnElement="Event_0f6ekcz">
+                <dc:Bounds x="482" y="502" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_1hdcj9z_di" bpmnElement="Event_1p3bv87">
+                <dc:Bounds x="852" y="622" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_1k6y4c0_di" bpmnElement="Event_1cv1ftf">
+                <dc:Bounds x="532" y="72" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0u9ylzx_di" bpmnElement="Event_1hvlbb6" bioc:stroke="#000" bioc:fill="#fff">
+                <dc:Bounds x="532" y="422" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="516" y="398" width="67" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

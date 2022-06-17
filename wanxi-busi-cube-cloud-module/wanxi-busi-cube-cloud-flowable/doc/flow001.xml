@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:activiti="http://activiti.org/bpmn" id="sample-diagram" targetNamespace="http://activiti.org/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="leave" name="员工请假流程" isExecutable="true">
+        <bpmn2:extensionElements>
+            <activiti:properties>
+                <activiti:property name="completeType" value="自动" />
+                <activiti:property name="url" value="leave/detail" />
+            </activiti:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:startEvent id="StartEvent_1" name="开始">
+            <bpmn2:outgoing>Flow_1wy2qh7</bpmn2:outgoing>
+        </bpmn2:startEvent>
+        <bpmn2:sequenceFlow id="Flow_1wy2qh7" sourceRef="StartEvent_1" targetRef="Activity_0or3isc" />
+        <bpmn2:userTask id="Activity_0or3isc" name="提交请假申请" activiti:formKey="Activity_0or3isc" activiti:assignee="">
+            <bpmn2:extensionElements>
+                <activiti:properties>
+                    <activiti:property name="startTask" value="yes" />
+                    <activiti:property name="url" value="leave/detail" />
+                    <activiti:property name="rollbackTaskType" value="固定值" />
+                    <activiti:property name="rollbackTaskCode" value="Activity_0or3isc" />
+                    <activiti:property name="rollbackTaskAsyncNotice" value="yes" />
+                </activiti:properties>
+                <activiti:formProperty id="FormProperty_15fgf9d--__!!radio--__!!审批意见--__!!i--__!!同意--__--退回" type="string" />
+                <activiti:formProperty id="FormProperty_20ue22c--__!!textarea--__!!批注--__!!f__!!null" type="string" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1wy2qh7</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1csi79o</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1csi79o" sourceRef="Activity_0or3isc" targetRef="Activity_1yluzj2" />
+        <bpmn2:userTask id="Activity_1yluzj2" name="部门领导审批" activiti:formKey="Activity_1yluzj2" activiti:candidateUsers="">
+            <bpmn2:extensionElements>
+                <activiti:formProperty id="FormProperty_0ets331--__!!radio--__!!审批意见--__!!i--__!!同意--__--不同意" type="string" />
+                <activiti:formProperty id="FormProperty_388ooak--__!!textarea--__!!批注--__!!f--__!!null" type="string" />
+                <activiti:properties>
+                    <activiti:property name="url" value="leave/detail" />
+                    <activiti:property name="rollbackTaskType" value="固定值" />
+                    <activiti:property name="rollbackTaskCode" value="Activity_0or3isc" />
+                    <activiti:property name="rollbackTaskAsyncNotice" value="yes" />
+                </activiti:properties>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1csi79o</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1mbh6zd</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1mbh6zd" sourceRef="Activity_1yluzj2" targetRef="Activity_0ve1ofp" />
+        <bpmn2:userTask id="Activity_0ve1ofp" name="人资审批" activiti:formKey="Activity_0ve1ofp" activiti:candidateUsers="">
+            <bpmn2:extensionElements>
+                <activiti:properties>
+                    <activiti:property name="url" value="leave/detail" />
+                    <activiti:property name="rollbackTaskType" value="固定值" />
+                    <activiti:property name="rollbackTaskCode" value="Activity_0or3isc" />
+                    <activiti:property name="rollbackTaskAsyncNotice" value="yes" />
+                </activiti:properties>
+                <activiti:formProperty id="FormProperty_1pf1mlv--__!!radio--__!!审批意见--__!!i--__!!同意--__--不同意" type="string" />
+                <activiti:formProperty id="FormProperty_39be37p--__!!textarea--__!!批注--__!!f--__!!null" type="string" />
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>Flow_1mbh6zd</bpmn2:incoming>
+            <bpmn2:outgoing>Flow_1fk7te2</bpmn2:outgoing>
+        </bpmn2:userTask>
+        <bpmn2:sequenceFlow id="Flow_1fk7te2" sourceRef="Activity_0ve1ofp" targetRef="Event_1un7eyf">
+<!--            <bpmn2:extensionElements>-->
+<!--                <activiti:executionListener delegateExpression="processEndStateListener" event="take" />-->
+<!--            </bpmn2:extensionElements>-->
+            <bpmn2:extensionElements>
+                   <activiti:executionListener class="org.jeecg.modules.flowable.listener.ProcessEndStateListener" event="take" />
+            </bpmn2:extensionElements>-->
+        </bpmn2:sequenceFlow>
+        <bpmn2:endEvent id="Event_1un7eyf" name="结束">
+            <bpmn2:incoming>Flow_1fk7te2</bpmn2:incoming>
+        </bpmn2:endEvent>
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="leave">
+            <bpmndi:BPMNEdge id="Flow_1fk7te2_di" bpmnElement="Flow_1fk7te2">
+                <di:waypoint x="1040" y="258" />
+                <di:waypoint x="1102" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1mbh6zd_di" bpmnElement="Flow_1mbh6zd">
+                <di:waypoint x="820" y="258" />
+                <di:waypoint x="940" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1csi79o_di" bpmnElement="Flow_1csi79o">
+                <di:waypoint x="600" y="258" />
+                <di:waypoint x="720" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1wy2qh7_di" bpmnElement="Flow_1wy2qh7">
+                <di:waypoint x="448" y="258" />
+                <di:waypoint x="500" y="258" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+                <dc:Bounds x="412" y="240" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="420" y="283" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1plwj09_di" bpmnElement="Activity_0or3isc">
+                <dc:Bounds x="500" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1r507do_di" bpmnElement="Activity_1yluzj2">
+                <dc:Bounds x="720" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0m0cfhq_di" bpmnElement="Activity_0ve1ofp">
+                <dc:Bounds x="940" y="218" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_1un7eyf_di" bpmnElement="Event_1un7eyf">
+                <dc:Bounds x="1102" y="240" width="36" height="36" />
+                <bpmndi:BPMNLabel>
+                    <dc:Bounds x="1110" y="210" width="22" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

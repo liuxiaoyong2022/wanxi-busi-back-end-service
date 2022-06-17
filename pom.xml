@@ -63,9 +63,10 @@
 
 		<module>wanxi-busi-cube-starter</module>
 		<module>wanxi-busi-cube-cloud-module</module>
+        <module>wanxi-busi-cube-module-remote-api</module>
 
 
-		<!--需要微服务，请打开
+        <!--需要微服务，请打开
         <module>jeecg-boot-starter</module>
         <module>jeecg-cloud-module</module>-->
 	</modules>

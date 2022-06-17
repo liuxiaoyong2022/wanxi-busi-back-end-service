@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.jeecg.org">
+    <process id="oa_employment_apply" name="用人申请">
+        <documentation>流程描述</documentation>
+        <extensionElements>
+            <activiti:executionListener class="org.jeecg.modules.flowable.listener.ProcessEndListener" id="402880e54803a496014805e5d9190012" event="end" />
+        </extensionElements>
+        <startEvent id="start1" name="开始节点" activiti:initiator="applyUserId" />
+        <endEvent id="end" name="结束节点" />
+        <userTask id="task1564480905805" name="申请人填表" activiti:assignee="admin">
+            <extensionElements>
+                <activiti:taskListener class="org.jeecg.modules.flowable.listener.TaskCreatedAutoSubmitListener" event="create" id="9c3064baa7074eab62e3c5b3b5458691" />
+            </extensionElements>
+        </userTask>
+        <userTask id="task1564480942367" name="部门经理" activiti:assignee="admin" />
+        <userTask id="task1564480946938" name="人力资源部" activiti:assignee="admin" />
+        <userTask id="task1564481318374" name="总经理" activiti:assignee="admin" />
+        <sequenceFlow id="flow1564481080012" name="" sourceRef="start1" targetRef="task1564480905805" />
+        <sequenceFlow id="flow1564481082309" name="" sourceRef="task1564480905805" targetRef="task1564480942367" />
+        <sequenceFlow id="flow1564481084170" name="" sourceRef="task1564480942367" targetRef="task1564480946938" />
+        <sequenceFlow id="flow1564481356911" name="" sourceRef="task1564481318374" targetRef="end" />
+        <sequenceFlow id="flow1574496053128" name="" sourceRef="task1564480946938" targetRef="task1564481318374" />
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_oa_employment_apply">
+        <bpmndi:BPMNPlane id="BPMNPlane_oa_employment_apply" bpmnElement="oa_employment_apply">
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1574496053128" bpmnElement="flow1574496053128">
+                <omgdi:waypoint x="537" y="126" />
+                <omgdi:waypoint x="620" y="126" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1564481356911" bpmnElement="flow1564481356911">
+                <omgdi:waypoint x="720" y="126" />
+                <omgdi:waypoint x="748" y="126" />
+                <omgdi:waypoint x="748" y="126" />
+                <omgdi:waypoint x="776" y="126" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1564481084170" bpmnElement="flow1564481084170">
+                <omgdi:waypoint x="379" y="126" />
+                <omgdi:waypoint x="437" y="126" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1564481082309" bpmnElement="flow1564481082309">
+                <omgdi:waypoint x="220" y="126" />
+                <omgdi:waypoint x="279" y="126" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="BPMNEdge_flow1564481080012" bpmnElement="flow1564481080012">
+                <omgdi:waypoint x="71" y="126" />
+                <omgdi:waypoint x="95" y="126" />
+                <omgdi:waypoint x="95" y="126" />
+                <omgdi:waypoint x="120" y="126" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_start1" bpmnElement="start1">
+                <omgdc:Bounds x="41" y="111" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_end" bpmnElement="end">
+                <omgdc:Bounds x="776" y="111" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1564480905805" bpmnElement="task1564480905805">
+                <omgdc:Bounds x="125" y="99" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1564480942367" bpmnElement="task1564480942367">
+                <omgdc:Bounds x="284" y="99" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1564480946938" bpmnElement="task1564480946938">
+                <omgdc:Bounds x="442" y="99" width="90" height="55" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_task1564481318374" bpmnElement="task1564481318374">
+                <omgdc:Bounds x="625" y="99" width="90" height="55" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

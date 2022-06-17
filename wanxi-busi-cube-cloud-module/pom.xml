@@ -19,6 +19,7 @@
         <module>wanxi-busi-cube-cloud-system-start</module>
         <module>wanxi-busi-cube-cloud-xxljob</module>
         <module>wanxi-busi-cube-cloud-test</module>
+        <module>wanxi-busi-cube-cloud-flowable</module>
     </modules>
 
 
