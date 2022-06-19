@@ -18,51 +18,64 @@ import java.util.Date;
  * @since 2018-12-19
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class SysRoleDto implements Serializable {
+public class SysRoleDto  {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * id
      */
-    private String id;
+    private String roleId;
 
     /**
      * 角色名称
      */
     private String roleName;
-
     /**
      * 角色编码
      */
     private String roleCode;
 
     /**
-          * 描述
+     * 描述
      */
     private String description;
 
-    /**
-     * 创建人
-     */
-    private String createBy;
+    public String getRoleId() {
+        return roleId;
+    }
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
-    /**
-     * 更新人
-     */
-    private String updateBy;
+    public String getRoleName() {
+        return roleName;
+    }
 
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
+
 
 
 }

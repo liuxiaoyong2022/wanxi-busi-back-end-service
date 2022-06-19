@@ -4,5 +4,6 @@
 rebel.xml
 /logs/
 .git/
-/docker-compose-environment/docker-npm/volume/verdaccio/storage/data/
+/docker-compose-environment/docker-npm/volume/
+/docker-compose-environment/docker-npm-nexus/volume/
 

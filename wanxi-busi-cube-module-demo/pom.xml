@@ -16,15 +16,34 @@
             <groupId>com.wanxi.busi.cube</groupId>
             <artifactId>wanxi-busi-cube-base-core</artifactId>
         </dependency>
+
+        <!--流程模块-->
+
         <!--引入微服务启动依赖 starter -->
       <dependency>
           <groupId>com.wanxi.busi.cube</groupId>
           <artifactId>wanxi-busi-cube-starter-cloud</artifactId>
       </dependency>
+
         <dependency>
             <groupId>com.wanxi.busi.cube</groupId>
             <artifactId>wanxi-busi-cube-starter-job</artifactId>
         </dependency>
 
+
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--微服务模式下修改为true,跳过此打包插件，否则微服务模块无法引用-->
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

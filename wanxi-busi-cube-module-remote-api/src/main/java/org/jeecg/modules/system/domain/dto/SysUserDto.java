@@ -17,10 +17,8 @@ import java.util.Date;
  * @Author scott
  * @since 2018-12-20
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class SysUserDto implements Serializable {
+
+public class SysUserDto  {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,10 +37,7 @@ public class SysUserDto implements Serializable {
      */
     private String realname;
 
-    /**
-     * 密码
-     */
-    private String password;
+
 
     /**
      * md5密码盐
@@ -109,25 +104,7 @@ public class SysUserDto implements Serializable {
      */
     private String telephone;
 
-    /**
-     * 创建人
-     */
-    private String createBy;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新人
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
     /**
      * 同步工作流引擎1同步0不同步
      */
@@ -151,4 +128,6 @@ public class SysUserDto implements Serializable {
 
     /**设备id uniapp推送用*/
     private String clientId;
+
+
 }

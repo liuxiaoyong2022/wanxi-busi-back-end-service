@@ -34,6 +34,13 @@
 			<groupId>com.wanxi.busi.cube</groupId>
 			<artifactId>wanxi-system-local-api</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.wanxi.busi.cube</groupId>
+			<artifactId>wanxi-busi-cube-module-remote-api</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- jeewx api -->
 		<dependency>
 			<groupId>org.jeecgframework</groupId>
@@ -56,6 +63,12 @@
 			<artifactId>jimureport-spring-boot-starter</artifactId>
 			<version>1.4.32</version>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.wanxi.busi.cube</groupId>-->
+<!--			<artifactId>wanxi-busi-cube-module-remote-api</artifactId>-->
+<!--			<version>1.0.0</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
 
 
 		<!-- DEMO 示例模块【微服务启动请注释掉】 -->

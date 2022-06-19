@@ -23,11 +23,7 @@
             <artifactId>wanxi-busi-cube-starter-cloud</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.wanxi.busi.cube</groupId>
-            <artifactId>wanxi-busi-cube-module-remote-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+
         <!--引入微服务启动依赖 starter
       <dependency>
           <groupId>org.jeecgframework.boot</groupId>
